@@ -1,0 +1,57 @@
+@(employeeForm: Form[(String, Int, String, String, String, String)])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+
+@main(title = "HR Solutions") {
+
+@form(action = routes.EmployeeController.save) {
+
+<fieldset>
+    <legend>Add Employee</legend>
+
+    @inputText(
+        field = employeeForm("name"),
+        args = '_label -> "Name"
+    )
+
+    @inputText(
+        field = employeeForm("age"),
+        args = '_label -> "Age", '_size -> 3
+    )
+
+    @select(
+        field = employeeForm("gender"),
+        options = options(
+            "" -> "Please select",
+            "m" -> "Male",
+            "f" -> "Female"
+        ),
+        args = '_label -> "Gender"
+    )
+
+    @inputText(
+        field = employeeForm("street"),
+        args = '_label -> "Street"
+    )
+
+    @inputText(
+        field = employeeForm("city"),
+        args = '_label -> "City"
+    )
+
+    @inputText(
+        field = employeeForm("postcode"),
+        args = '_label -> "Post Code"
+    )
+
+    <br/>
+
+    <div class="actions">
+        <input type="submit" value="Submit">
+        <a href="@routes.Application.index">Cancel</a>
+    </div>
+</fieldset>
+}
+}

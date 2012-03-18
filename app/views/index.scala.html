@@ -1,0 +1,58 @@
+@(employees: List[(Employee, Address)])
+
+@import helper._
+
+@main(title = "HR Solutions"){
+<center>
+<h2>HR Solutions</h2>
+
+<h3>Total number of Employees: @employees.size</h3>
+
+<table width="60%" border="1" align="center" text-align="center">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Postcode</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @employees.map {
+        case (employee, address) => {
+        <tr align="center">
+            <td>@employee.name</td>
+            <td>@employee.age</td>
+            <td>
+                @if(employee.gender.equals("m")) {
+                   Male
+                } else {
+                   Female
+                }
+            </td>
+            <td>@address.street</td>
+            <td>@address.city</td>
+            <td>@address.postcode</td>
+            <td>
+                @form(action = routes.EmployeeController.editForm(employee.id.get)) {
+                    <input type="submit" value="Edit">
+                }
+            </td>
+            <td>
+                @form(routes.EmployeeController.delete(employee.id.get)) {
+                    <input type="submit" value="Delete">
+                }
+            </td>
+        </tr>
+        }
+    }
+    </tbody>
+</table>
+<br/>
+<a href="/createForm">Add a new employee</a>
+</center>
+}
